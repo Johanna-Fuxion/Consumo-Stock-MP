@@ -44,7 +44,7 @@ body{background:var(--bg);color:var(--ink);font:14px/1.45 "Segoe UI",system-ui,-
 .num{font-variant-numeric:tabular-nums}
 .app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
 /* sidebar */
-aside{background:var(--side);color:var(--side-ink);position:sticky;top:0;height:100vh;overflow:auto;padding:22px 18px;display:flex;flex-direction:column;gap:20px}
+aside{background:var(--side);color:var(--side-ink);position:relative;overflow:visible;padding:22px 18px;display:flex;flex-direction:column;gap:20px}
 .brand{display:flex;flex-direction:column;gap:10px}
 .brand .logo{background:#fff;border-radius:10px;padding:12px 16px;display:flex;justify-content:center}
 .brand .logo img{display:block;width:100%;max-width:170px;height:auto}
@@ -67,7 +67,7 @@ details.fbox summary{list-style:none;cursor:pointer;margin-bottom:12px}details.f
 .seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid #2c4a69;border-radius:7px;overflow:hidden;background:var(--side-2)}
 .seg button{border:0;background:transparent;color:var(--side-ink);height:32px;font:inherit;font-size:13px;cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:600}
-.side-btns{display:flex;gap:8px;margin-top:auto}
+.side-btns{display:flex;gap:8px;margin-top:4px}
 .side-btns button{flex:1;height:32px;border:1px solid #2c4a69;background:transparent;color:var(--side-ink);border-radius:7px;font:inherit;font-size:12px;cursor:pointer}
 .side-btns button:hover{background:var(--side-2)}
 /* main */
@@ -165,7 +165,6 @@ td.desc{white-space:normal;min-width:200px}
 @media (max-width:700px){.dt-tools input{width:100%}.dt .tbl-wrap{height:360px}}
 
 /* sidebar toggle */
-aside{position:sticky}
 .side-x{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:7px;border:1px solid #2c4a69;background:var(--side-2);color:var(--side-ink);display:grid;place-items:center;cursor:pointer;padding:0}
 .side-x:hover{background:#1f4166}
 .side-x svg,.side-open svg,.xbtn svg,.mclose svg{width:16px;height:16px}
