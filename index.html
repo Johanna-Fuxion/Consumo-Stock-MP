@@ -11,9 +11,9 @@
   --ink:#0f1f2e; --ink-2:#44515f; --ink-3:#7a8693;
   --side:#0f2740; --side-2:#173554; --side-ink:#dbe6f1; --side-mut:#8ea6be;
   --accent:#0f8b8d; --accent-2:#0b6e70; --accent-soft:#e3f3f3; --grid:#edf0f3;
-  --s-bajo:#d03b3b; --s-medio:#0ca30c; --s-alto:#fab219; --s-sobre:#ec835a; --s-sincons:#a8afb8; --s-sinstock:#5b6470;
+  --s-bajo:#d03b3b; --s-medio:#0ca30c; --s-alto:#fab219; --s-sobre:#ec835a; --s-sincons:#a8afb8; --s-sinstock:#a3121b; --s-inact:#5b6470;
   --abc-a:#0b6e70; --abc-b:#3fb0b2; --abc-c:#b9e3e3;
-  --good:#0a7d0a; --bad:#c03535;
+  --good:#0a7d0a; --bad:#c03535; --crit-bg:#fdecec;
 }
 @media (prefers-color-scheme: dark){
   :root:where(:not([data-theme="light"])){
@@ -22,9 +22,9 @@
     --ink:#eef2f5; --ink-2:#b8c2cc; --ink-3:#8793a0;
     --side:#0b1a2b; --side-2:#13283f;
     --accent:#2bb3b5; --accent-2:#5cc9cb; --accent-soft:#16302f; --grid:#242c35;
-    --s-sincons:#6f7782; --s-sinstock:#9aa3ad;
+    --s-sincons:#6f7782; --s-sinstock:#ff5a5f; --s-inact:#9aa3ad;
     --abc-a:#2bb3b5; --abc-b:#6fd0d2; --abc-c:#b9e3e3;
-    --good:#3ec43e; --bad:#ef6b6b;
+    --good:#3ec43e; --bad:#ef6b6b; --crit-bg:#3a1c20;
   }
 }
 :root[data-theme="dark"]{
@@ -33,9 +33,9 @@
   --ink:#eef2f5; --ink-2:#b8c2cc; --ink-3:#8793a0;
   --side:#0b1a2b; --side-2:#13283f;
   --accent:#2bb3b5; --accent-2:#5cc9cb; --accent-soft:#16302f; --grid:#242c35;
-  --s-sincons:#6f7782; --s-sinstock:#9aa3ad;
+  --s-sincons:#6f7782; --s-sinstock:#ff5a5f; --s-inact:#9aa3ad;
   --abc-a:#2bb3b5; --abc-b:#6fd0d2; --abc-c:#b9e3e3;
-  --good:#3ec43e; --bad:#ef6b6b;
+  --good:#3ec43e; --bad:#ef6b6b; --crit-bg:#3a1c20;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -101,6 +101,28 @@ main{padding:26px 30px 40px;min-width:0}
 .card .sub{margin:3px 0 10px;font-size:12px;color:var(--ink-3)}
 .chart{position:relative;height:230px}
 .chart.tall{height:290px}
+.abcx{display:grid;grid-template-columns:64px repeat(6,minmax(0,1fr));gap:6px;margin-top:6px}
+.abcx .hd{font-size:11px;font-weight:750;text-align:center;line-height:1.2;padding:2px 2px 4px;display:flex;flex-direction:column;justify-content:flex-end}
+.abcx .hd small{font-weight:500;color:var(--ink-3);font-size:10.5px}
+.abcx .rl{display:flex;align-items:center;font-size:12.5px;font-weight:800;color:var(--ink)}
+.abcx .rl small{display:block;font-size:10.5px;font-weight:500;color:var(--ink-3)}
+.abcx .cl{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:10px 4px;text-align:center;min-height:64px;display:flex;flex-direction:column;justify-content:center;gap:3px;transition:border-color .15s,box-shadow .15s}
+.abcx .cl:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.abcx .cl:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.abcx .cl b{font-size:18px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.abcx .cl span{font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.abcx .cl.z{cursor:default;opacity:.55}
+.abcx .cl.q{background:var(--crit-bg);border-color:rgba(208,59,59,.35)} .abcx .cl.q b{color:var(--s-sinstock)}
+.abcx .cl.s{background:rgba(236,131,90,.16);border-color:rgba(236,131,90,.45)}
+.abcx .cl.c{background:var(--surface-2)}
+.abcx .tl{font-size:11.5px;text-align:center;color:var(--ink-2);font-weight:700;font-variant-numeric:tabular-nums;padding-top:2px}
+.abcx .tl small{display:block;font-weight:500;color:var(--ink-3)}
+.abcx-leg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:11.5px;color:var(--ink-2)}
+.abcx-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.abcx-leg i.q{background:var(--crit-bg);border:1px solid rgba(208,59,59,.5)} .abcx-leg i.s{background:rgba(236,131,90,.3);border:1px solid rgba(236,131,90,.6)} .abcx-leg i.c{background:var(--surface-2);border:1px solid var(--border)}
+.mbody .abcx .cl{min-height:90px} .mbody .abcx .cl b{font-size:24px}
+@media (max-width:700px){.abcx{grid-template-columns:44px repeat(6,minmax(0,1fr));gap:4px}.abcx .cl b{font-size:14px}.abcx .cl span{font-size:9.5px}.abcx .hd{font-size:9.5px}}
+.grid2 > .span2{grid-column:1/-1}
 .donut{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center}
 .donut .chart{height:210px}
 .lg{display:flex;flex-direction:column;gap:7px;font-size:12px;color:var(--ink-2)}
@@ -110,7 +132,7 @@ main{padding:26px 30px 40px;min-width:0}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 8px;font-size:12px;color:var(--ink-2)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 /* keys strip */
-.keys{margin-top:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;display:grid;grid-template-columns:220px minmax(0,1fr);align-items:stretch;overflow:hidden}
+.keys{margin-top:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;display:grid;grid-template-columns:220px minmax(0,1fr);align-items:stretch;overflow:hidden}
 .keys .kt{display:flex;gap:12px;align-items:center;padding:16px 18px;background:var(--surface-2);border-right:1px solid var(--border)}
 .keys .kt svg{width:34px;height:34px;color:var(--accent);flex:0 0 auto}
 .keys .kt b{font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;line-height:1.25}
@@ -198,6 +220,65 @@ body.modal-open{overflow:hidden}
 aside::-webkit-scrollbar{display:none}
 .app{align-items:start}
 @media (max-width:980px){aside{position:static;height:auto;overflow:visible}}
+.grid21{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px}
+@media (max-width:980px){.grid21{grid-template-columns:1fr}}
+.mx-wrap{max-height:none;overflow-x:auto}
+#mxT{font-size:12.5px;border-collapse:separate;border-spacing:0;width:100%}
+@media (max-width:700px){#mxT .sc{min-width:118px!important;max-width:118px!important;width:118px!important;white-space:normal!important}#mxT .sc2{left:118px!important;min-width:70px!important;white-space:normal!important;font-size:11px}}
+.mx-nav{display:flex;align-items:center;gap:6px}
+.mx-nav button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--ink);display:grid;place-items:center;font-size:18px;line-height:1}
+.mx-nav button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.mx-nav button:disabled{opacity:.35;cursor:default}
+.mx-nav select{height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--ink);font-weight:700;padding:0 8px;font:inherit;font-weight:700}
+#mxT th,#mxT td{padding:7px 9px;white-space:nowrap;border-bottom:1px solid var(--grid)}
+#mxT thead th{position:sticky;top:0;background:var(--surface-2);font-size:10.5px;text-transform:uppercase;letter-spacing:.3px;color:var(--ink-2);text-align:right;cursor:default}
+#mxT thead tr.wk th{background:#1f4e78;color:#fff;text-align:center;font-size:11.5px;letter-spacing:.4px;border-left:2px solid var(--surface)}
+#mxT thead tr:nth-child(2) th{top:31px}
+#mxT .sc{position:sticky;left:0;z-index:2;background:var(--surface);text-align:left;font-weight:700;min-width:212px;max-width:212px;width:212px;white-space:nowrap}
+#mxT .sc2{position:sticky;left:212px;white-space:nowrap;min-width:118px;z-index:2;background:var(--surface);text-align:left;color:var(--ink-2);min-width:64px;border-right:1px solid var(--border)}
+#mxT thead .sc,#mxT thead .sc2{z-index:3;background:var(--surface-2)}
+#mxT thead tr.wk .sc,#mxT thead tr.wk .sc2{background:#1f4e78}
+#mxT td{text-align:right}
+#mxT td.g0{border-left:2px solid var(--border)}
+#mxT tr.crit td,#mxT tr.crit .sc,#mxT tr.crit .sc2{background-color:var(--crit-bg)}
+#mxT tr.crit .chip{color:var(--s-sinstock);font-weight:700}
+#mxT tr.crit td:not(.sc):not(.sc2){color:var(--s-sinstock);font-weight:600}
+#mxT .cbtn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:2px 7px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--accent);font-weight:650;font-variant-numeric:tabular-nums}
+#mxT .cbtn svg{width:12px;height:12px}
+#mxT .cbtn:hover{background:var(--accent-soft);border-color:var(--accent)}
+#mxT .cbtn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+#mxT tr.crit .cbtn{color:var(--s-sinstock)}
+#mxT tr.tot td{font-weight:700;background:var(--surface-2);border-top:1px solid var(--border)}
+#mxT tr.tot .sc,#mxT tr.tot .sc2{background:var(--surface-2)}
+#mxT .bar{background-image:linear-gradient(to right,var(--accent-soft) var(--p),transparent var(--p));background-repeat:no-repeat}
+.ic{display:inline-block;min-width:14px;text-align:center;font-weight:800;margin-right:4px}
+.ic.g{color:var(--good)} .ic.a{color:#d39000} .ic.r{color:var(--bad)}
+.mx-leg{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);margin:0 0 10px}
+.mx-leg .ic{margin-right:2px}
+.dt-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.dt-tools button{height:32px;border:1px solid var(--border);background:var(--surface);color:var(--ink-2);border-radius:7px;padding:0 12px;font:inherit;font-size:12px;cursor:pointer}
+.crc{margin-top:22px;border:1px solid var(--border);border-radius:16px;padding:2px 16px 16px;background:var(--surface-2)}
+.crc .cat{margin-top:14px}
+.ins{margin-top:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.ins-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.ins-h svg{width:24px;height:24px;color:var(--accent)}
+.ins-h b{font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase}
+.ins-h span{font-size:12px;color:var(--ink-3)}
+.ins-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ins-c{border-left:3px solid var(--accent);padding:4px 0 4px 12px}
+.ins-c .tgx{font-size:11px;font-weight:600;color:var(--ink-3);margin-left:6px}
+.ins-c h4{margin:0 0 4px;font-size:13px;font-weight:750;color:var(--ink)}
+.ins-c .big{font-size:20px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.ins-c .big small{font-size:12px;font-weight:600;color:var(--ink-3);margin-left:4px}
+.ins-c p{margin:4px 0 0;font-size:12.5px;line-height:1.45;color:var(--ink-2)}
+.ins-c p b{color:var(--ink)}
+.ins-j{margin-top:14px;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:var(--accent-soft);font-size:13px;line-height:1.45;color:var(--ink)}
+.ins-j.warn{background:var(--crit-bg)}
+.ins-n{margin-top:10px;font-size:11.5px;color:var(--ink-3);line-height:1.4}
+@media (max-width:900px){.ins-g{grid-template-columns:1fr}}
+.cat{display:flex;align-items:center;gap:10px;margin:22px 0 10px;font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent)}
+.cat::after{content:'';flex:1;height:1px;background:var(--border)}
+.grid2 + .cat{margin-top:22px}
 footer{margin-top:28px;font-size:11.5px;color:var(--ink-3);line-height:1.6}
 @media (max-width:1280px){.strip{grid-template-columns:repeat(3,minmax(0,1fr))}.kp:nth-child(4){border-left:0}.kp:nth-child(n+4){border-top:1px solid var(--border)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:980px){
@@ -233,9 +314,9 @@ footer{margin-top:28px;font-size:11.5px;color:var(--ink-3);line-height:1.6}
   </div>
   <nav>
     <a href="#resumen" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Resumen</a>
+    <a href="#detalle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></svg>Detalle semanal</a>
     <a href="#alertas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg>Alertas</a>
-    <a href="#tendencias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Tendencias</a>
-    <a href="#detalle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></svg>Detalle por tema</a>
+    <a href="#claves"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>Conclusiones</a>
   </nav>
   <details class="fbox" id="fbox" open><summary class="side-h">Filtros</summary>
   <div class="flt">
@@ -267,20 +348,30 @@ footer{margin-top:28px;font-size:11.5px;color:var(--ink-3);line-height:1.6}
 
     <div class="strip" id="strip"></div>
 
-    <div class="grid">
-      <div class="card"><h3>Valor por status de cobertura</h3><p class="sub">S/ de inventario a la semana de corte</p>
-        <div class="donut"><div class="chart"><canvas id="cStatusV"></canvas></div><div class="lg" id="lgStatusV"></div></div></div>
-      <div class="card"><h3 id="tCob">Cobertura semanal (meses)</h3><p class="sub">Stock ÷ CPM · guías en 3, 6 y 9 meses</p><div class="chart"><canvas id="cCob"></canvas></div></div>
+    <div class="cat"><span>Valor</span></div>
+    <div class="grid2">
       <div class="card"><h3>Valor por familia</h3><p class="sub">S/ de inventario, de mayor a menor</p><div class="chart"><canvas id="cFam"></canvas></div></div>
-      <div class="card"><h3>Consumo semanal</h3><p class="sub">Suma de consumo por semana</p><div class="chart"><canvas id="cCons"></canvas></div></div>
-      <div class="card"><h3 id="tCpm">CPM semanal</h3><p class="sub">Consumo promedio mensual · tooltip con variación semanal</p><div class="chart"><canvas id="cCpm"></canvas></div></div>
-      <div class="card"><h3>Clasificación ABC</h3><p class="sub">Materiales por clase de consumo</p>
-        <div class="donut"><div class="chart"><canvas id="cAbc"></canvas></div><div class="lg" id="lgAbc"></div></div></div>
+      <div class="card"><h3>Valor por rango de cobertura</h3><p class="sub">Stock de cada material repartido en tramos de 3 meses de CPM, valorizado a su costo · semana de corte</p><div class="chart"><canvas id="cRango"></canvas></div></div>
     </div>
+    <div class="crc">
+    <div class="cat"><span>Cobertura, rotación y consumo</span></div>
+    <div class="grid2">
+      <div class="card"><h3 id="tCob">Cobertura semanal (meses)</h3><p class="sub">Stock ÷ CPM · guías en 3, 6 y 9 meses</p><div class="chart"><canvas id="cCob"></canvas></div></div>
+      <div class="card"><h3 id="tRot">Rotación semanal</h3><p class="sub">CPM ÷ stock (veces por mes)</p><div class="chart"><canvas id="cRot"></canvas></div></div>
+    </div>
+      <div class="card" style="margin-top:14px"><h3 id="tCons">Consumo semanal vs. CPM</h3><p class="sub">Barras: consumo real de cada semana · línea: ritmo promedio (CPM ÷ 4.33), la base de la cobertura y la rotación</p><div class="chart" style="height:260px"><canvas id="cCons"></canvas></div></div>
+      <div class="ins-j" id="insJ"></div>
+      <div id="insRange" hidden></div><div id="insG" hidden></div>
+    </div>
+  </section>
 
-    <div class="keys">
-      <div class="kt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg><b>Claves de la<br>semana</b></div>
-      <ul id="keys"></ul>
+  <section id="detalle">
+    <div class="sec-h"><h2>Detalle semanal por status de cobertura</h2><div class="note" id="mxNote"></div></div>
+    <div class="card mx">
+      <div class="dt-h"><div class="tt"><h3 id="mxTitle">Detalle semanal por status de cobertura</h3><p class="sub" id="mxSub" style="display:none"></p></div>
+        <div class="mx-nav"><button type="button" id="mxPrev" aria-label="Semana anterior">‹</button><select id="mxWk" aria-label="Semana"></select><button type="button" id="mxNext" aria-label="Semana siguiente">›</button></div><div class="dt-tools" style="display:none"><button type="button" id="mxCsv">Exportar CSV</button></div></div>
+      <div class="mx-leg" style="display:none"><span><b class="ic g">✓</b><b class="ic a">!</b><b class="ic r">✕</b><b class="ic r">↓</b> Cobertura: ≤ 3 m · 3–6 m · &gt; 6 m · sin consumo</span><span><b class="ic r">⚠</b> Quiebre de stock: stock 0 con consumo (CPM &gt; 0)</span><span><b class="ic g">●</b><b class="ic a">▲</b><b class="ic r">◆</b> Rotación: ≥ 0.33 · 0.11–0.33 · &lt; 0.11 veces/mes</span></div>
+      <div class="tbl-wrap mx-wrap" id="mxWrap"><table id="mxT"></table></div>
     </div>
   </section>
 
@@ -288,36 +379,24 @@ footer{margin-top:28px;font-size:11.5px;color:var(--ink-3);line-height:1.6}
     <div class="sec-h"><h2>Alertas para la acción</h2><div class="note">Top 10 a la semana de corte</div></div>
     <div class="grid2 alerts">
       <div class="card"><h3>Riesgo de quiebre de stock<span class="badge crit" id="nCrit"></span></h3><p class="sub">Clase A y B sin stock o con menos de 1 mes de cobertura, ordenados por CPM</p><div class="tbl-wrap"><table id="tCrit"></table></div></div>
-      <div class="card"><h3>Mayor sobrestock valorizado<span class="badge ser" id="nSob"></span></h3><p class="sub">Stock por encima de 9 meses de CPM o sin consumo, valorizado en S/</p><div class="tbl-wrap"><table id="tSob"></table></div></div>
+      <div class="card"><h3>Mayor sobrestock valorizado<span class="badge ser" id="nSob"></span></h3><p class="sub">Stock por encima de 9 meses de CPM, valorizado en S/</p><div class="tbl-wrap"><table id="tSob"></table></div></div>
     </div>
   </section>
 
-  <section id="tendencias">
-    <div class="sec-h"><h2>Tendencias</h2><div class="note" id="trendNote"></div></div>
-    <div class="grid2">
-      <div class="card"><h3>N.º de códigos por status de cobertura</h3><p class="sub" id="sStatus"></p><div class="legend" id="lgStatus"></div><div class="chart tall"><canvas id="cStatus"></canvas></div></div>
-      <div class="card"><h3 id="tRot">Rotación semanal</h3><p class="sub">CPM ÷ stock (veces por mes)</p><div class="chart tall" style="margin-top:26px"><canvas id="cRot"></canvas></div></div>
-    </div>
-    <div class="grid2" style="margin-top:14px">
-      <div class="card"><h3>Valor de inventario semanal</h3><p class="sub">S/ por semana</p><div class="chart"><canvas id="cVal"></canvas></div></div>
-      <div class="card"><h3>Valor por rango de cobertura</h3><p class="sub">S/ de inventario según meses de cobertura · semana de corte</p><div class="chart"><canvas id="cRango"></canvas></div></div>
+  <section id="claves">
+    <div class="sec-h"><h2>Conclusiones</h2><div class="note">Resumen de la semana de corte</div></div>
+    <div class="keys">
+      <div class="kt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg><b>Claves de la<br>semana</b></div>
+      <ul id="keys"></ul>
     </div>
   </section>
 
-  <section id="detalle">
-    <div class="sec-h"><h2>Detalle por tema</h2><div class="note" id="dtNote"></div></div>
-    <div class="dts">
-      <div class="card dt" id="dt-sob"></div>
-      <div class="card dt" id="dt-qui"></div>
-      <div class="card dt" id="dt-rot"></div>
-      <div class="card dt" id="dt-cpm"></div>
-    </div>
-  </section>
+
 
   <footer>
     <span id="srcNote">Fuente: hoja «Consumo promedio» de Consumo promedio MP.xlsm (almacén MP), la misma que alimenta el informe de Power BI.</span> Los indicadores de la semana de corte usan solo esa semana.
-    Status de cobertura: Bajo ≤ 3 meses · Medio ≤ 6 · Alto ≤ 9 · Sobrestock &gt; 9 · Sin consumo = CPM 0 · Sin stock = stock 0.
-    Sobrestock = stock por encima de 9 meses de CPM, valorizado a costo de inventario; si el material no tiene consumo, todo su stock cuenta como sobrestock (mismo criterio que el Excel y el Power BI). Clase ABC según consumo promedio acumulado (A ≤ 80 %, B ≤ 95 %, C resto).
+    Status de cobertura: Bajo ≤ 3 meses · Medio ≤ 6 · Alto ≤ 9 · Sobrestock &gt; 9 · Sin consumo = CPM 0, con o sin stock · Quiebre de stock = stock 0 con CPM &gt; 0.
+    Sobrestock = stock por encima de 9 meses de CPM, valorizado a costo de inventario. El stock de materiales sin consumo (CPM 0) no se cuenta como sobrestock: se muestra aparte en Sin consumo. Clase ABC según consumo promedio acumulado (A ≤ 80 %, B ≤ 95 %, C resto).
     Stock, consumo y CPM suman unidades de medida distintas (KG, UN, etc.), como en el informe original; el valor en S/ es comparable entre materiales.
   </footer>
 </main>
@@ -351,21 +430,21 @@ const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).
 const esc = s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const cap = s=>s.charAt(0)+s.slice(1).toLowerCase();
 const N = D.w.length;
-const STATUS = ['Bajo','Medio','Alto','Sobrestock','Sin consumo','Sin stock'];
+const STATUS = ['Bajo','Medio','Alto','Sobrestock','Sin consumo','Quiebre de stock'];
 const SVAR = ['--s-bajo','--s-medio','--s-alto','--s-sobre','--s-sincons','--s-sinstock'];
 const S = {hz:'2m', from:D.minw, to:D.maxw, fam:'', st:'', abc:'', q:'', sort:{k:'v',dir:-1}, page:0};
 const byWeek = {}; for(let i=0;i<N;i++){ (byWeek[D.w[i]] ||= []).push(i); }
 const weeks = Object.keys(byWeek).map(Number).sort((a,b)=>a-b);
-const stockWeeks = weeks.filter(w=>byWeek[w].some(i=>D.s[i]>0 && D.p2[i]>0));
+const stockWeeks = weeks.filter(w=>{ const r=byWeek[w], ns=r.filter(i=>D.s[i]>0).length, nv=r.filter(i=>D.v[i]>0).length; return ns>0 && r.some(i=>D.p2[i]>0) && nv>=ns*0.5; });
 // start of the latest continuous run of weeks with stock (skips gaps in the stock sheet)
 let firstStock = stockWeeks.length? stockWeeks[stockWeeks.length-1] : D.minw;
 for(let k=stockWeeks.length-2;k>=0 && stockWeeks[k]===stockWeeks[k+1]-1;k--) firstStock=stockWeeks[k];
 S.from = firstStock;
 
 const cpmOf = i => S.hz==='2m' ? D.p2[i] : D.pa[i];
-function statusIdx(stock,cpm){ if(!stock) return 5; if(!cpm) return 4; const c=stock/cpm; return c<=3?0:c<=6?1:c<=9?2:3; }
+function statusIdx(stock,cpm){ if(!cpm) return 4; if(!stock) return 5; const c=stock/cpm; return c<=3?0:c<=6?1:c<=9?2:3; }
 function rangoIdx(stock,cpm){ if(!stock||!cpm) return -1; const c=stock/cpm; return c<3?0:c<6?1:c<9?2:3; }
-function sobre(stock,cpm,val){ if(!stock) return [0,0]; if(!cpm) return [stock,val||0]; if(stock/cpm<=9) return [0,0]; const q=Math.max(0,stock-cpm*9); return [q, val? q/stock*val : 0]; }
+function sobre(stock,cpm,val){ if(!stock) return [0,0]; if(!cpm) return [0,0]; if(stock/cpm<=9) return [0,0]; const q=Math.max(0,stock-cpm*9); return [q, val? q/stock*val : 0]; }
 
 function fillSelect(el, items, sel){ el.innerHTML = items.map(([v,t])=>`<option value="${v}"${String(v)===String(sel)?' selected':''}>${t}</option>`).join(''); }
 fillSelect($('#wFrom'), weeks.map(w=>[w,'W'+w]), S.from);
@@ -382,15 +461,19 @@ function rowPass(i){
   return true;
 }
 function weekAgg(w){
-  const a={stD:[new Set(),new Set(),new Set(),new Set(),new Set(),new Set()],cons:0,stock:0,val:0,cpm:0,mats:new Set(),st:[0,0,0,0,0,0],stv:[0,0,0,0,0,0],sobV:0,rango:[0,0,0,0],fam:{},abc:{A:0,B:0,C:0},rows:[]};
+  const Z=()=>[0,0,0,0,0,0]; const a={sS:Z(),sP:Z(),sQ:Z(),sV9:Z(),stD:Array.from({length:6},()=>new Set()),sc4:new Set(),cons:0,stock:0,val:0,cpm:0,mats:new Set(),st:Z(),stv:Z(),sobV:0,rango:[0,0,0,0,0],rangoQ:[0,0,0,0,0],fam:{},abc:{A:0,B:0,C:0},rows:[]};
   const seenAbc=new Set();
   for(const i of (byWeek[w]||[])){
     if(!rowPass(i)) continue;
     const s=D.s[i]||0, p=cpmOf(i)||0, v=D.v[i]||0, m=D.mats[D.m[i]];
     a.cons+=D.c[i]||0; a.stock+=s; a.val+=v; a.cpm+=p; a.mats.add(D.m[i]);
-    const si=statusIdx(s,p); a.st[si]++; a.stv[si]+=v; a.stD[si].add(D.m[i]);
+    const si=statusIdx(s,p); a.st[si]++; a.stv[si]+=v; a.stD[si].add(D.m[i]); if(si===4&&s>0) a.sc4.add(D.m[i]); const sq=sobre(s,p,v); a.sS[si]+=s; a.sP[si]+=p; a.sQ[si]+=sq[0]; a.sV9[si]+=sq[1];
     a.sobV+=sobre(s,p,v)[1];
-    const r=rangoIdx(s,p); if(r>=0) a.rango[r]+=v;
+    // reparto proporcional del stock en tramos de 3 meses de CPM (como las columnas <3M, >3M-<6M, 6M>-<9M, >9M del Excel)
+    if(s>0){ const u=v/s;
+      if(p>0){ const b=[Math.min(s,3*p), Math.min(Math.max(s-3*p,0),3*p), Math.min(Math.max(s-6*p,0),3*p), Math.max(s-9*p,0)];
+        for(let k=0;k<4;k++){ a.rangoQ[k]+=b[k]; a.rango[k]+=b[k]*u; } }
+      else { a.rangoQ[4]+=s; a.rango[4]+=v; } }
     a.fam[m[2]]=(a.fam[m[2]]||0)+v;
     if(!seenAbc.has(D.m[i])){ seenAbc.add(D.m[i]); a.abc[m[3]]++; }
     a.rows.push(i);
@@ -454,8 +537,7 @@ function render(){
 
   $('#pCut').textContent='W'+S.to; $('#pHz').textContent= S.hz==='2m'?'2 meses':'Anual'; $('#pGen').textContent=D.gen||'—';
   $('#tag').textContent = `Inventario de S/ ${compact(cut.val)} con ${fmt1.format(cob)} meses de cobertura ${hzName}. Seguimiento semanal de W${S.from} a W${S.to}.`;
-  $('#tCob').textContent=`Cobertura ${hzName} semanal (meses)`; $('#tCpm').textContent=`CPM ${hzName} semanal`; $('#tRot').textContent=`Rotación ${hzName} semanal`;
-  $('#trendNote').textContent=`W${S.from} a W${S.to}`+(S.from<firstStock?` · stock y CPM disponibles desde W${firstStock}`:'');
+  $('#tCob').textContent=`Cobertura ${hzName} semanal (meses)`; $('#tRot').textContent=`Rotación ${hzName} semanal`;
 
   // KPI strip
   const delta=(a,b,inv=false)=>{ if(!b) return 'sin dato previo'; const d=(a-b)/Math.abs(b); if(!isFinite(d)) return ''; const up=d>=0, good=inv?!up:up;
@@ -469,10 +551,6 @@ function render(){
     kp('warn','warn','Cobertura baja',fmt0.format(cut.stD[0].size)+'<small>códigos</small>',delta(cut.stD[0].size,prev.stD[0].size,true));
 
   const labels=ws.map(w=>'W'+w), ac=css('--accent'), sCols=SVAR.map(css);
-  // 1 donut value by status
-  const tv=cut.stv.reduce((x,y)=>x+y,0)||1;
-  donut('cStatusV',STATUS,cut.stv,sCols,v=>`S/ ${fmt0.format(v)} (${fmtPct.format(v/tv)})`,{top:'S/ '+compact(cut.val),bottom:'valor total'});
-  $('#lgStatusV').innerHTML=STATUS.map((s,i)=>`<div><i style="background:${sCols[i]}"></i>${s}<b class="num">${fmtPct.format(cut.stv[i]/tv)}</b></div>`).join('');
   // 2 cobertura
   const cobC=lineCfg(labels,aggs.map(a=>a.cpm?a.stock/a.cpm:null),'Cobertura',v=>fmt1.format(v)+' meses',true);
   cobC.options.scales.y.ticks.callback=v=>fmt1.format(v); cobC.options.plugins.refLines={values:[3,6,9]}; cobC.plugins=[refLines]; upsert('cCob',cobC);
@@ -484,17 +562,6 @@ function render(){
     options:Object.assign(baseOpts(v=>'S/ '+fmt0.format(v)),{indexAxis:'y',layout:{padding:{right:52}},interaction:{mode:'nearest',axis:'y',intersect:false},
       plugins:{legend:{display:false},endLabels:{fmt:v=>compact(v)},tooltip:Object.assign(tip(),{callbacks:{label:c=>' S/ '+fmt0.format(c.parsed.x)}})},
       scales:{x:{display:false,max:famMax*1.02,beginAtZero:true},y:{grid:{display:false},border:{display:false},ticks:{color:css('--ink-2')}}}})});
-  // 4 consumo
-  upsert('cCons',{type:'bar',data:{labels,datasets:[{label:'Consumo',data:aggs.map(a=>a.cons),backgroundColor:ac,borderRadius:{topLeft:4,topRight:4},borderSkipped:'start',maxBarThickness:18}]},options:baseOpts(v=>fmt0.format(v))});
-  // 5 cpm
-  const cpmS=aggs.map(a=>a.cpm); const cpmC=lineCfg(labels,cpmS,'CPM '+hzName,v=>fmt0.format(v),false);
-  cpmC.options.plugins.tooltip.callbacks.afterLabel=c=>{const i=c.dataIndex; if(!i||!cpmS[i-1]) return ''; const d=(cpmS[i]-cpmS[i-1])/cpmS[i-1]; return ` Var. semanal: ${d>=0?'+':''}${fmtPct.format(d)}`;};
-  upsert('cCpm',cpmC);
-  // 6 ABC
-  const abcCols=[css('--abc-a'),css('--abc-b'),css('--abc-c')], abcV=[cut.abc.A,cut.abc.B,cut.abc.C], abcT=abcV.reduce((a,b)=>a+b,0)||1;
-  donut('cAbc',['Clase A','Clase B','Clase C'],abcV,abcCols,v=>`${fmt0.format(v)} materiales (${fmtPct.format(v/abcT)})`,{top:fmt0.format(abcT),bottom:'materiales'});
-  $('#lgAbc').innerHTML=['A','B','C'].map((x,i)=>`<div><i style="background:${abcCols[i]}"></i>Clase ${x}<b class="num">${fmt0.format(abcV[i])}</b></div>`).join('')+`<div class="mut" style="font-size:11px;margin-top:4px">A = 80 % del consumo</div>`;
-
   // keys
   const dv=prev.val?(cut.val-prev.val)/prev.val:0;
   const chk=s=>`<li>${IC.check}<span>${s}</span></li>`;
@@ -502,8 +569,8 @@ function render(){
     `Cobertura ${hzName} de <b>${fmt1.format(cob)} meses</b> (${cob<=3?'nivel bajo':cob<=6?'nivel medio':cob<=9?'nivel alto':'sobrestock'}), ${cob>=cobP?'sube':'baja'} ${fmtPct.format(Math.abs(cobP?(cob-cobP)/cobP:0))} vs. W${S.to-1}.`,
     `Valor de inventario <b>${dv>=0?'+':'−'}${fmtPct.format(Math.abs(dv))}</b> en la semana: S/ ${compact(cut.val)}.`,
     `<b>${fmt0.format(crit.length)} materiales A/B</b> sin stock o con menos de 1 mes de cobertura: priorizar reposición.`,
-    `<b>S/ ${compact(cut.sobV)}</b> en sobrestock (${fmt0.format(cut.stD[3].size)} con más de 9 meses y ${fmt0.format(cut.stD[4].size)} sin consumo): ${sobL[0]?esc(cap(sobL[0].desc))+' es el mayor':'sin casos'}.`,
-    `<b>${fmt0.format(cut.stD[4].size)} códigos</b> con stock pero sin consumo en el horizonte (S/ ${compact(cut.stv[4])}).`,
+    `<b>S/ ${compact(cut.sobV)}</b> en sobrestock (exceso sobre 9 meses de ${fmt0.format(cut.stD[3].size)} códigos): ${sobL[0]?esc(cap(sobL[0].desc))+' es el mayor':'sin casos'}.`,
+    `<b>${fmt0.format(cut.stD[4].size)} códigos</b> sin consumo en el horizonte (${fmt0.format(cut.sc4.size)} con stock, S/ ${compact(cut.stv[4])}).`,
     `Clase A: <b>${fmt0.format(cut.abc.A)} materiales</b> concentran el 80 % del consumo.`
   ].map(chk).join('');
 
@@ -516,111 +583,146 @@ function render(){
   $('#tSob').innerHTML=topT(sobL.slice(0,10),[{t:'Material',cls:'desc',f:matCell},{t:'Cobertura',r:1,f:r=>r.p?fmt1.format(r.cob)+' m':'<span class="tg">Sin consumo</span>'},{t:'Valor S/',r:1,f:r=>fmt0.format(r.v)},{t:'Sobrestock S/',r:1,f:r=>`<b>${fmt0.format(r.sob)}</b>`}]);
 
   // trends
-  $('#lgStatus').innerHTML=STATUS.map((s,i)=>`<span><i style="background:${sCols[i]}"></i>${s}</span>`).join('');
-  $('#sStatus').textContent=`Materiales por semana según cobertura ${hzName}`;
-  upsert('cStatus',{type:'bar',data:{labels,datasets:STATUS.map((s,j)=>({label:s,data:aggs.map(a=>a.st[j]),backgroundColor:sCols[j],borderColor:css('--surface'),borderWidth:{top:2},borderSkipped:false,maxBarThickness:22}))},
-    options:Object.assign(baseOpts(v=>fmt0.format(v)+' códigos'),{scales:{x:{stacked:true,grid:{display:false},ticks:{color:css('--ink-3'),maxRotation:0,autoSkipPadding:10}},y:{stacked:true,grid:{color:css('--grid')},ticks:{color:css('--ink-3')},border:{display:false}}}})});
+  { const lc=css('--s-sobre'); const cc={type:'bar',data:{labels,datasets:[
+      {type:'line',label:'CPM semanal (CPM ÷ 4.33)',data:aggs.map(a=>a.cpm/4.33),borderColor:lc,backgroundColor:lc,borderWidth:2.5,pointRadius:2.5,pointHoverRadius:5,pointBackgroundColor:lc,tension:.3,order:0},
+      {label:'Consumo de la semana',data:aggs.map(a=>a.cons),backgroundColor:ac+'b3',borderRadius:{topLeft:4,topRight:4},borderSkipped:'start',maxBarThickness:22,order:1}]},
+      options:baseOpts(v=>fmt0.format(v))};
+    cc.options.plugins.legend={display:true,position:'top',align:'end',labels:{usePointStyle:true,boxWidth:8,boxHeight:8,color:css('--ink-2'),font:{size:11.5}}};
+    upsert('cCons',cc); }
   const rotC=lineCfg(labels,aggs.map(a=>a.stock?a.cpm/a.stock:null),'Rotación',v=>fmt2.format(v)+' veces/mes',true); rotC.options.scales.y.ticks.callback=v=>fmt2.format(v); upsert('cRot',rotC);
-  upsert('cVal',lineCfg(labels,aggs.map(a=>a.val),'Valor',v=>'S/ '+fmt0.format(v),true));
-  const rv=cut.rango, rMax=Math.max(...rv,1);
-  upsert('cRango',{type:'bar',data:{labels:['< 3 meses','3 a 6 meses','6 a 9 meses','> 9 meses'],datasets:[{label:'Valor',data:rv,backgroundColor:ac,borderRadius:{topRight:4,bottomRight:4},borderSkipped:'start',maxBarThickness:24}]},plugins:[endLabels],
-    options:Object.assign(baseOpts(v=>'S/ '+fmt0.format(v)),{indexAxis:'y',layout:{padding:{right:56}},interaction:{mode:'nearest',axis:'y',intersect:false},
-      plugins:{legend:{display:false},endLabels:{fmt:v=>'S/ '+compact(v)},tooltip:Object.assign(tip(),{callbacks:{label:c=>' S/ '+fmt0.format(c.parsed.x)}})},
+  const rv=cut.rango, rq=cut.rangoQ, rMax=Math.max(...rv,1), rT=rv.reduce((x,y)=>x+y,0)||1;
+  upsert('cRango',{type:'bar',data:{labels:['0 a 3 meses','3 a 6 meses','6 a 9 meses','Más de 9 meses','Sin consumo'],datasets:[{label:'Valor',data:rv,backgroundColor:[ac,ac,ac,ac,css('--s-sincons')],borderRadius:{topRight:4,bottomRight:4},borderSkipped:'start',maxBarThickness:24}]},plugins:[endLabels],
+    options:Object.assign(baseOpts(v=>'S/ '+fmt0.format(v)),{indexAxis:'y',layout:{padding:{right:110}},interaction:{mode:'nearest',axis:'y',intersect:false},
+      plugins:{legend:{display:false},endLabels:{fmt:v=>'S/ '+compact(v)+'  ·  '+fmtPct.format(v/rT)},tooltip:Object.assign(tip(),{callbacks:{label:c=>' S/ '+fmt0.format(c.parsed.x)+' ('+fmtPct.format(c.parsed.x/rT)+')',afterLabel:c=>' Stock: '+fmt0.format(rq[c.dataIndex])+' unid.'}})},
       scales:{x:{display:false,max:rMax*1.02,beginAtZero:true},y:{grid:{display:false},border:{display:false},ticks:{color:css('--ink-2')}}}})});
 
-  renderDT(rows, aggs, prev);
+  renderCRC(aggs, ws, cut, hzName);
+  renderMatrix(aggs, ws);
 }
 
-// ---- detail tables (internal scroll) ----
-const pctF = v=> v==null||!isFinite(v) ? '—' : `<span class="${v>=0?'up2':'dn2'}">${v>=0?'+':''}${fmtPct.format(v)}</span>`;
-const DT = {
- sob:{title:'Productos en sobrestock', sub:'Stock por encima de 9 meses de CPM, o sin consumo en el horizonte · valorizado a costo', sort:{k:'sob',dir:-1},
-   filter:r=>r.sob>0,
-   cols:[{k:'fam',t:'Familia',f:r=>cap(r.fam)},{k:'cod',t:'Código'},{k:'desc',t:'Descripción',cls:'desc'},{k:'abc',t:'ABC',f:r=>`<span class="abc">${r.abc}</span>`},
-     {k:'s',t:'Stock',r:1,f:r=>fmt0.format(r.s)},{k:'p',t:'CPM',r:1,f:r=>fmt0.format(r.p)},{k:'cob',t:'Cobertura (m)',r:1,f:r=>r.cob==null?'—':fmt1.format(r.cob)},
-     {k:'sobQ',t:'Sobrestock (unid.)',r:1,f:r=>fmt0.format(r.sobQ)},{k:'sob',t:'Sobrestock S/',r:1,f:r=>`<b>${fmt0.format(r.sob)}</b>`},{k:'v',t:'Valor total S/',r:1,f:r=>fmt0.format(r.v)},
-     {k:'mot',t:'Motivo',f:r=>`<span class="tg ser">${r.mot}</span>`},{k:'uk',t:'Último consumo',f:r=>r.u}],
-   sum:rs=>[['Materiales',fmt0.format(rs.length)],['Sobrestock S/','S/ '+compact(rs.reduce((x,r)=>x+r.sob,0))],['Sin consumo',fmt0.format(rs.filter(r=>!r.p).length)+' materiales'],['Más de 9 meses',fmt0.format(rs.filter(r=>r.p).length)+' materiales']],
-   foot:rs=>({sobQ:fmt0.format(rs.reduce((x,r)=>x+r.sobQ,0)),sob:fmt0.format(rs.reduce((x,r)=>x+r.sob,0)),v:fmt0.format(rs.reduce((x,r)=>x+r.v,0))})},
- qui:{title:'Quiebre de productos', sub:'Materiales con consumo que ya no tienen stock o que tienen menos de 1 mes de cobertura', sort:{k:'p',dir:-1},
-   filter:r=>r.p>0 && (r.s<=0 || r.cob<1),
-   cols:[{k:'fam',t:'Familia',f:r=>cap(r.fam)},{k:'cod',t:'Código'},{k:'desc',t:'Descripción',cls:'desc'},{k:'abc',t:'ABC',f:r=>`<span class="abc">${r.abc}</span>`},
-     {k:'sit',t:'Situación',f:r=>`<span class="tg crit">${r.sit}</span>`},{k:'p',t:'CPM',r:1,f:r=>`<b>${fmt0.format(r.p)}</b>`},{k:'s',t:'Stock',r:1,f:r=>fmt0.format(r.s)},
-     {k:'dias',t:'Días de cobertura',r:1,f:r=>fmt0.format(r.dias)},{k:'falt',t:'Faltante a 1 mes',r:1,f:r=>fmt0.format(r.falt)},{k:'uk',t:'Último consumo',f:r=>r.u}],
-   sum:rs=>[['Materiales',fmt0.format(rs.length)],['Sin stock',fmt0.format(rs.filter(r=>r.s<=0).length)],['Menos de 1 mes',fmt0.format(rs.filter(r=>r.s>0).length)],['Clase A / B',fmt0.format(rs.filter(r=>r.abc!=='C').length)]],
-   foot:rs=>({p:fmt0.format(rs.reduce((x,r)=>x+r.p,0)),s:fmt0.format(rs.reduce((x,r)=>x+r.s,0)),falt:fmt0.format(rs.reduce((x,r)=>x+r.falt,0))})},
- rot:{title:'Tiempo de rotación y valor', sub:'Días que tardaría en consumirse el stock actual al ritmo del CPM, con su valor', sort:{k:'v',dir:-1},
-   filter:r=>r.s>0,
-   cols:[{k:'fam',t:'Familia',f:r=>cap(r.fam)},{k:'cod',t:'Código'},{k:'desc',t:'Descripción',cls:'desc'},{k:'abc',t:'ABC',f:r=>`<span class="abc">${r.abc}</span>`},
-     {k:'v',t:'Valor S/',r:1,f:r=>`<b>${fmt0.format(r.v)}</b>`},{k:'pv',t:'% del valor',r:1,f:r=>fmtPct.format(r.pv)},{k:'s',t:'Stock',r:1,f:r=>fmt0.format(r.s)},{k:'p',t:'CPM',r:1,f:r=>fmt0.format(r.p)},
-     {k:'rot',t:'Rotación (veces/mes)',r:1,f:r=>r.p?fmt2.format(r.rot):'—'},{k:'dias',t:'Tiempo de rotación (días)',r:1,f:r=>r.p?fmt0.format(r.dias):'<span class="tg">Sin consumo</span>'},
-     {k:'st',t:'Status',f:r=>`<span class="chip"><i style="background:${css(SVAR[r.st])}"></i>${STATUS[r.st]}</span>`}],
-   sum:(rs,c)=>{ const V=rs.reduce((x,r)=>x+r.v,0), Sx=rs.reduce((x,r)=>x+r.s,0), P=rs.reduce((x,r)=>x+r.p,0); return [['Materiales con stock',fmt0.format(rs.length)],['Valor','S/ '+compact(V)],['Tiempo de rotación global',P?fmt0.format(Sx/P*30)+' días':'—'],['Más de 270 días',fmt0.format(rs.filter(r=>!r.p||r.dias>270).length)+' materiales']]; },
-   foot:rs=>({v:fmt0.format(rs.reduce((x,r)=>x+r.v,0)),s:fmt0.format(rs.reduce((x,r)=>x+r.s,0)),p:fmt0.format(rs.reduce((x,r)=>x+r.p,0))})},
- cpm:{title:'Consumo promedio', sub:'', sort:{k:'p',dir:-1},
-   filter:r=>r.p>0 || r.cper>0,
-   cols:[{k:'fam',t:'Familia',f:r=>cap(r.fam)},{k:'cod',t:'Código'},{k:'desc',t:'Descripción',cls:'desc'},{k:'abc',t:'ABC',f:r=>`<span class="abc">${r.abc}</span>`},
-     {k:'cw',t:'Consumo semana corte',r:1,f:r=>fmt0.format(r.cw)},{k:'cper',t:'Consumo del período',r:1,f:r=>fmt0.format(r.cper)},{k:'cavg',t:'Promedio semanal',r:1,f:r=>fmt1.format(r.cavg)},
-     {k:'nw',t:'Semanas con consumo',r:1,f:r=>`${r.nw} / ${r.nwt}`},{k:'p2',t:'CPM 2M',r:1,f:r=>fmt0.format(r.p2)},{k:'pa',t:'CPM anual',r:1,f:r=>fmt0.format(r.pa)},
-     {k:'dcpm',t:'Var. CPM vs. sem. ant.',r:1,f:r=>pctF(r.dcpm)},{k:'uk',t:'Último consumo',f:r=>r.u}],
-   sum:rs=>[['Materiales con consumo',fmt0.format(rs.length)],['Consumo del período',compact(rs.reduce((x,r)=>x+r.cper,0))],['CPM suben',fmt0.format(rs.filter(r=>r.dcpm>0.0005).length)],['CPM bajan',fmt0.format(rs.filter(r=>r.dcpm<-0.0005).length)]],
-   foot:rs=>({cw:fmt0.format(rs.reduce((x,r)=>x+r.cw,0)),cper:fmt0.format(rs.reduce((x,r)=>x+r.cper,0)),p2:fmt0.format(rs.reduce((x,r)=>x+r.p2,0)),pa:fmt0.format(rs.reduce((x,r)=>x+r.pa,0))})},
-};
-const DTS = {}; // state per table
-for(const key of Object.keys(DT)){
-  const el=document.getElementById('dt-'+key), cfg=DT[key];
-  DTS[key]={sort:{...cfg.sort}, q:'', rows:[]};
-  el.innerHTML=`<div class="dt-h"><div class="tt"><h3>${cfg.title}</h3><p class="sub" data-sub></p></div>
-    <div class="dt-tools"><input type="search" placeholder="Buscar en esta tabla" aria-label="Buscar en ${cfg.title}"><button type="button" data-csv>Exportar CSV</button></div></div>
-    <div class="dt-sum" data-sum></div>
-    <div class="tbl-wrap"><table><thead><tr></tr></thead><tbody></tbody><tfoot><tr></tr></tfoot></table></div>`;
-  let tm; el.querySelector('input').addEventListener('input',e=>{ clearTimeout(tm); tm=setTimeout(()=>{ DTS[key].q=e.target.value.trim().toLowerCase(); drawDT(key); },200); });
-  el.querySelector('thead').addEventListener('click',e=>{ const th=e.target.closest('th'); if(!th) return; const k=th.dataset.k, st=DTS[key].sort;
-    DTS[key].sort={k,dir:st.k===k?-st.dir:(['fam','cod','desc','abc','mot','sit','uk'].includes(k)?1:-1)}; drawDT(key); });
-  el.querySelector('[data-csv]').addEventListener('click',()=>{ const rs=visibleRows(key);
-    const lines=[cfg.cols.map(c=>c.t).join(';')].concat(rs.map(r=>cfg.cols.map(c=>{ let v=c.k==='uk'?r.u:c.k==='st'?STATUS[r.st]:r[c.k]; if(v==null) v=''; if(typeof v==='string') v='"'+v.replace(/"/g,'""')+'"'; else if(typeof v==='number') v=String(Math.round(v*1000)/1000).replace('.',','); return v; }).join(';')));
-    const blob=new Blob(['﻿'+lines.join('\n')],{type:'text/csv;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${cfg.title.replace(/\s+/g,'_')}_W${S.to}_${S.hz}.csv`; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); });
+// ---- insight: cobertura, rotación y consumo ----
+function renderCRC(aggs, ws, cut, hzName){
+  const n=aggs.length; if(!n){ $('#insG').innerHTML=''; $('#insJ').textContent=''; return; }
+  const L=n-1, k=L, B=0, f1=fmt1.format, f2=fmt2.format;
+  const cob=a=>a.cpm? a.stock/a.cpm : null, rot=a=>a.stock? a.cpm/a.stock : null;
+  const ch=(a,b)=> b? (a-b)/Math.abs(b) : 0, pct=x=>(x>=0?'+':'−')+fmtPct.format(Math.abs(x));
+  const arrow=x=> Math.abs(x)<0.03?'estable':x>0?'▲ sube':'▼ baja';
+  const c1=cob(aggs[L]), c0=cob(aggs[B]), r1=rot(aggs[L]), p1=aggs[L].cpm, p0=aggs[B].cpm, dP=ch(p1,p0), dS=ch(aggs[L].stock,aggs[B].stock), dC=(c1!=null&&c0!=null)?ch(c1,c0):0;
+  const zone=c=> c==null?'—' : c<=3?'Bajo' : c<=6?'Medio' : c<=9?'Alto' : 'Sobrestock';
+  const rz=r=> r==null?'—' : r>=1/3?'buena' : r>=1/9?'lenta' : 'estancada';
+  const lastC=aggs.slice(L-Math.min(2,L),L+1).reduce((x,a)=>x+a.cons,0)/(Math.min(2,L)+1);
+  $('#insRange').textContent=`W${ws[L]} vs. W${ws[B]} · horizonte ${hzName}`;
+  const card=(h,big,unit,tag,p)=>`<div class="ins-c"><h4>${h} <span class="tgx">${tag}</span></h4><div class="big">${big}<small>${unit}</small></div><p>${p}</p></div>`;
+  $('#insG').innerHTML=
+    card('Cobertura',c1!=null?f1(c1):'—','meses',arrow(dC),`El stock alcanza para <b>${c1!=null?f1(c1):'—'} meses</b> (zona ${zone(c1)}). En W${ws[B]}: ${c0!=null?f1(c0):'—'} m.`)+
+    card('Rotación',r1!=null?f2(r1):'—','veces/mes',arrow(-dC),`El inventario se renueva cada <b>${r1?f1(1/r1):'—'} meses</b>: rotación ${rz(r1)}.`)+
+    card('CPM',compact(p1),'unid./mes',arrow(dP),`El ritmo de consumo ${Math.abs(dP)<0.03?'se mantiene':dP>0?'sube':'baja'} <b>${pct(dP)}</b> desde W${ws[B]}; el stock, ${pct(dS)}.`);
+  const per=`Entre W${ws[B]} y W${ws[L]}`; let m;
+  if(L===0) m=`Semana W${ws[L]}: elige un rango de semanas en el filtro para ver la evolución.`;
+  else if(Math.abs(dC)<0.03) m=`${per} la cobertura se mantiene: stock y CPM se mueven al mismo ritmo.`;
+  else if(dC<0) m=`${per} la cobertura baja porque ${dP>0?`el CPM sube ${pct(dP)} y el stock solo ${pct(dS)}`:`el stock cae ${pct(dS)}, más que el CPM (${pct(dP)})`}.`;
+  else m=`${per} la cobertura sube porque ${dP<0?`el CPM cae ${pct(dP)} y el stock varía ${pct(dS)}`:`el stock crece ${pct(dS)}, más que el CPM (${pct(dP)})`}.`;
+  const wl=weeks.filter(x=>x<=ws[L]).slice(-13), byW=new Map(ws.map((x,i)=>[x,aggs[i]]));
+  const avg13=wl.reduce((x,w)=>x+(byW.get(w)||weekAgg(w)).cons,0)/(wl.length||1);
+  m+= lastC>avg13*1.03 ? ` <b>Hacia adelante:</b> las últimas semanas consumen <b>más</b> que el promedio de 13 semanas (${compact(lastC)} vs. ${compact(avg13)} por semana), así que el CPM seguirá subiendo y la cobertura bajando.`
+     : lastC<avg13*0.97 ? ` <b>Hacia adelante:</b> las últimas semanas consumen <b>menos</b> que el promedio de 13 semanas (${compact(lastC)} vs. ${compact(avg13)} por semana), así que el CPM tenderá a bajar y la cobertura a subir.`
+     : ` <b>Hacia adelante:</b> el consumo reciente va en línea con el promedio de 13 semanas; la cobertura debería estabilizarse.`;
+  const nQ=cut.stD[5].size; if(nQ && dC<0) m+=` Vigila los <b>${fmt0.format(nQ)} códigos en quiebre</b>.`;
+  const j=$('#insJ'); j.innerHTML='<b>Lectura rápida:</b> '+m; j.className='ins-j'+(nQ&&dC<0?' warn':'');
 }
-function visibleRows(key){
-  const st=DTS[key], q=st.q, {k,dir}=st.sort;
-  const rs = q ? st.rows.filter(r=>(r.cod+' '+r.desc+' '+r.fam).toLowerCase().includes(q)) : st.rows.slice();
-  rs.sort((a,b)=>{ const x=a[k], y=b[k]; if(x==null||(typeof x==='number'&&!isFinite(x))) return 1; if(y==null||(typeof y==='number'&&!isFinite(y))) return -1; return (typeof x==='string'? x.localeCompare(y) : x-y)*dir; });
-  return rs;
+
+// ---- matrix: detalle semanal por status de cobertura (como el Power BI) ----
+const MX_ORDER=[5,0,1,2,3,4], ALC=['<3M','3M-6M','6M-9M','>9M','CPM 0','Stock 0 · CPM > 0'];
+const MX_NAME=['Bajo','Medio','Alto','Sobrestock','Sin consumo','Sin stock (Quiebre de stock)'];
+const cobIc=(st,c)=> st===5 ? '<b class="ic r">⚠</b>' : st>=4 ? '<b class="ic r">↓</b>' : c<=3 ? '<b class="ic g">✓</b>' : c<=6 ? '<b class="ic a">!</b>' : '<b class="ic r">✕</b>';
+const rotIc=r=> !r ? '<b class="ic r">◆</b>' : r>=1/3 ? '<b class="ic g">●</b>' : r>=1/9 ? '<b class="ic a">▲</b>' : '<b class="ic r">◆</b>';
+const MXC=['Stock total','Sobrestock','CPM','N.º códigos','%','Cobertura','Rotación','Valor inventario','S/ Sobrestock'];
+let mxRows=[];
+let mxSel=null, mxData=null;
+function renderMatrix(aggs, ws){
+  mxData=[aggs,ws]; if(mxSel==null || !ws.includes(mxSel)) mxSel=ws[ws.length-1];
+  const ix0=ws.indexOf(mxSel); $('#mxWk').innerHTML=ws.map(w=>`<option value="${w}"${w===mxSel?' selected':''}>W${w}</option>`).join('');
+  $('#mxPrev').disabled=ix0<=0; $('#mxNext').disabled=ix0>=ws.length-1;
+  aggs=[aggs[ix0]]; ws=[ws[ix0]];
+  const hz=S.hz==='2m'?'2M':'anual';
+  $('#mxTitle').textContent=`Detalle semanal por status de cobertura · ${hz}`;
+  $('#mxSub').textContent=`Por semana: stock, sobrestock (unid.), CPM ${hz}, n.º de códigos, % del total, cobertura y rotación con su indicador, valor S/ y S/ en sobrestock (exceso sobre 9 meses) · clic en el n.º de códigos para descargar la lista`;
+  $('#mxNote').textContent=`W${S.from} a W${S.to} · usa las flechas para cambiar de semana`;
+  const cell=(a,j)=>{ const n=a.stD[j].size, N=a.mats.size||1, c=a.sP[j]? a.sS[j]/a.sP[j] : 0, r=a.sS[j]? a.sP[j]/a.sS[j] : 0;
+    return {stock:a.sS[j], sob:a.sQ[j], cpm:a.sP[j], n, pct:n/N, cob:c, rot:r, val:a.stv[j], v9:a.sV9[j], st:j}; };
+  const tot=a=>{ const S_=a.sS.reduce((x,y)=>x+y,0), P_=a.sP.reduce((x,y)=>x+y,0);
+    return {stock:S_, sob:a.sQ.reduce((x,y)=>x+y,0), cpm:P_, n:a.mats.size, pct:1, cob:P_?S_/P_:0, rot:S_?P_/S_:0, val:a.stv.reduce((x,y)=>x+y,0), v9:a.sV9.reduce((x,y)=>x+y,0), st:-1}; };
+  const maxS=aggs.map(a=>Math.max(...a.sS,1)), maxV=aggs.map(a=>Math.max(...a.stv,1));
+  const td=(c,k,first)=>{ const cls=first?'g0':'';
+    switch(k){
+      case 0: return `<td class="${cls} bar" style="--p:${(c.st<0?0:c.stock/c._mS*100).toFixed(1)}%">${fmt0.format(c.stock)}</td>`;
+      case 1: return `<td>${c.sob?fmt0.format(c.sob):'0'}</td>`;
+      case 2: return `<td>${fmt0.format(c.cpm)}</td>`;
+      case 3: return `<td>${c.n?`<button class="cbtn" data-w="${c.w}" data-j="${c.st}" title="Descargar los ${c.n} códigos">${fmt0.format(c.n)}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button>`:'0'}</td>`;
+      case 4: return `<td class="bar" style="--p:${(c.st<0?0:c.pct*100).toFixed(1)}%">${fmtPct.format(c.pct)}</td>`;
+      case 5: return `<td>${c.st<0?'':cobIc(c.st,c.cob)}${fmt2.format(c.cpm?c.cob:0)}</td>`;
+      case 6: return `<td>${c.st<0?'':rotIc(c.rot)}${fmt2.format(c.rot)}</td>`;
+      case 7: return `<td class="bar" style="--p:${(c.st<0?0:c.val/c._mV*100).toFixed(1)}%">S/ ${fmt0.format(c.val)}</td>`;
+      case 8: return `<td>${c.v9?'S/ '+fmt0.format(c.v9):'0'}</td>`;
+    } };
+  let h=`<thead><tr class="wk"><th class="sc">Status ${hz}</th><th class="sc2">Alcance</th>${ws.map(w=>`<th colspan="${MXC.length}">W${w}</th>`).join('')}</tr>`;
+  h+=`<tr><th class="sc"></th><th class="sc2"></th>${ws.map(()=>MXC.map(c=>`<th>${c}</th>`).join('')).join('')}</tr></thead><tbody>`;
+  mxRows=[];
+  for(const j of MX_ORDER){
+    h+=`<tr${j===5?' class="crit"':''}><td class="sc"><span class="chip"><i style="background:${css(SVAR[j])}"></i>${MX_NAME[j]}</span></td><td class="sc2">${ALC[j]}</td>`;
+    aggs.forEach((a,ix)=>{ const c=cell(a,j); c.w=ws[ix]; c._mS=maxS[ix]; c._mV=maxV[ix]; MXC.forEach((_,k)=>h+=td(c,k,k===0)); mxRows.push([MX_NAME[j],ALC[j],'W'+ws[ix],c]); });
+    h+='</tr>';
+  }
+  h+=`<tr class="tot"><td class="sc">Total</td><td class="sc2"></td>`;
+  aggs.forEach((a,ix)=>{ const c=tot(a); c.w=ws[ix]; MXC.forEach((_,k)=>h+=td(c,k,k===0)); mxRows.push(['Total','','W'+ws[ix],c]); });
+  h+='</tr></tbody>';
+  $('#mxT').innerHTML=h;
 }
-function drawDT(key){
-  const el=document.getElementById('dt-'+key), cfg=DT[key], st=DTS[key], rs=visibleRows(key);
-  el.querySelector('[data-sum]').innerHTML = cfg.sum(rs).map(([l,v])=>`<div>${l}<b class="num">${v}</b></div>`).join('');
-  el.querySelector('thead tr').innerHTML = cfg.cols.map(c=>`<th class="${c.r?'r':''}" data-k="${c.k}" aria-sort="${st.sort.k===c.k?(st.sort.dir>0?'ascending':'descending'):'none'}">${c.t}</th>`).join('');
-  el.querySelector('tbody').innerHTML = rs.length ? rs.map(r=>`<tr>${cfg.cols.map(c=>`<td class="${c.r?'r num':''} ${c.cls||''}">${c.f?c.f(r):esc(r[c.k])}</td>`).join('')}</tr>`).join('')
-    : `<tr><td colspan="${cfg.cols.length}" class="empty">No hay materiales con estos filtros.</td></tr>`;
-  const ft=cfg.foot(rs);
-  el.querySelector('tfoot tr').innerHTML = cfg.cols.map((c,i)=>`<td class="${c.r?'r num':''}">${i===0?'Total ('+fmt0.format(rs.length)+')':(ft[c.k]||'')}</td>`).join('');
+// ---- matriz Clase ABC x status ----
+const ABC_COLS=[5,0,1,2,3,4], ABC_HD=[['Quiebre','de stock'],['Bajo','≤ 3 m'],['Medio','3–6 m'],['Alto','6–9 m'],['Sobrestock','> 9 m'],['Sin','consumo']];
+function renderAbcX(cut, hzName){
+  const G={}; for(const k of 'ABC') G[k]=ABC_COLS.map(()=>({n:0,v:0}));
+  const T=ABC_COLS.map(()=>({n:0,v:0}));
+  for(const i of cut.rows){ const s=D.s[i]||0, p=cpmOf(i)||0, v=D.v[i]||0, k=D.mats[D.m[i]][3], j=ABC_COLS.indexOf(statusIdx(s,p));
+    if(!G[k]) continue; G[k][j].n++; G[k][j].v+=v; T[j].n++; T[j].v+=v; }
+  const cls=(k,c)=> (c===5&&k!=='C')?'q' : (c===3&&k!=='A')?'s' : (c===4&&k==='C')?'c' : '';
+  const money=v=> v>=1e6? 'S/ '+fmt2.format(v/1e6)+' M' : 'S/ '+fmt0.format(Math.round(v/1e3))+' mil';
+  let h='<div></div>'+ABC_HD.map((x,j)=>`<div class="hd" style="color:${css(SVAR[ABC_COLS[j]])}">${x[0]}<small>${x[1]}</small></div>`).join('');
+  for(const k of 'ABC'){ const tn=G[k].reduce((x,y)=>x+y.n,0); if(!tn) continue;
+    h+=`<div class="rl"><div>Clase ${k}<small>${fmt0.format(tn)} cód.</small></div></div>`;
+    G[k].forEach((c,j)=>{ const st=ABC_COLS[j];
+      h+= c.n ? `<button class="cl cbtn2 ${cls(k,st)}" data-w="${S.to}" data-j="${st}" data-abc="${k}" title="Descargar ${c.n} códigos clase ${k} · ${MX_NAME[st]}"><b>${fmt0.format(c.n)}</b><span>${st===5?'códigos':money(c.v)}</span></button>`
+              : `<div class="cl z"><b>0</b><span>—</span></div>`; }); }
+  h+='<div class="rl"><div>Total</div></div>'+T.map((c,j)=>`<div class="tl">${fmt0.format(c.n)}<small>${ABC_COLS[j]===5?'códigos':money(c.v)}</small></div>`).join('');
+  $('#abcX').innerHTML=h;
+  $('#tAbc').textContent=`Clase ABC × status de cobertura ${hzName} · W${S.to}`;
 }
-function renderDT(rows, aggs, prev){
-  // per-material consumption over the selected range and previous-week CPM
-  const cons=new Map(), nw=new Map(), cw=new Map(), cut=aggs[aggs.length-1];
-  aggs.forEach((a,ix)=>{ const seen=new Set(); for(const i of a.rows){ const m=D.m[i], c=D.c[i]||0; cons.set(m,(cons.get(m)||0)+c); if(c>0 && !seen.has(m)){ seen.add(m); nw.set(m,(nw.get(m)||0)+1); } if(ix===aggs.length-1) cw.set(m,(cw.get(m)||0)+c); } });
-  const pcpm=new Map(); for(const i of prev.rows){ pcpm.set(D.m[i],(pcpm.get(D.m[i])||0)+(cpmOf(i)||0)); }
-  const p2=new Map(), pa=new Map(); for(const i of cut.rows){ p2.set(D.m[i],(p2.get(D.m[i])||0)+(D.p2[i]||0)); pa.set(D.m[i],(pa.get(D.m[i])||0)+(D.pa[i]||0)); }
-  const codeIdx=new Map(D.mats.map((m,i)=>[m[0],i]));
-  const totV = rows.reduce((x,r)=>x+r.v,0)||1, nwt=aggs.length;
-  const ext = rows.map(r=>{ const k=codeIdx.get(r.cod), sobQ=r.sobQ, sob=r.sob, pp=pcpm.get(k);
-    const cp=cons.get(k)||0;
-    return Object.assign({}, r, {sobQ, sob, mot: r.p? 'Más de 9 meses' : 'Sin consumo',
-      sit: r.s<=0 ? 'Sin stock' : 'Menos de 1 mes', dias: r.p? r.s/r.p*30 : null, falt: Math.max(0, r.p - r.s),
-      pv: r.v/totV, cw: cw.get(k)||0, cper: cp, nw: nw.get(k)||0, nwt, cavg: cp/nwt, p2: p2.get(k)||0, pa: pa.get(k)||0,
-      dcpm: pp ? (r.p-pp)/pp : null}); });
-  for(const key of Object.keys(DT)){ DTS[key].rows = ext.filter(DT[key].filter); drawDT(key); }
-  el_sub('cpm',`Consumo de W${S.from} a W${S.to} y CPM por material · variación del CPM ${S.hz==='2m'?'2M':'anual'} vs. W${S.to-1}`);
-  for(const key of ['sob','qui','rot']) el_sub(key, DT[key].sub);
-  $('#dtNote').textContent=`Semana de corte W${S.to} · horizonte ${S.hz==='2m'?'2 meses':'anual'} · clic en un encabezado para ordenar`;
-}
-function el_sub(key,txt){ document.querySelector('#dt-'+key+' [data-sub]').textContent=txt; }
+const mxGo=d=>{ if(!mxData) return; const ws=mxData[1], i=ws.indexOf(mxSel)+d; if(i<0||i>=ws.length) return; mxSel=ws[i]; renderMatrix(...mxData); };
+$('#mxPrev').onclick=()=>mxGo(-1); $('#mxNext').onclick=()=>mxGo(1);
+$('#mxWk').onchange=e=>{ mxSel=+e.target.value; renderMatrix(...mxData); };
+// ---- descarga de códigos desde la matriz ----
+document.addEventListener('click',e=>{ const b=e.target.closest('.cbtn,.cbtn2'); if(!b) return;
+  const w=+b.dataset.w, j=+b.dataset.j, abc=b.dataset.abc||'', hz=S.hz==='2m'?'2M':'anual';
+  const num=v=>v==null?'':String(Math.round(v*100)/100).replace('.',',');
+  const head=['Semana','Status '+hz,'Material','Descripción','Familia','ABC','Stock','CPM '+hz,'Cobertura (meses)','Valor S/','Sobrestock unid.','Sobrestock S/','Último consumo'];
+  const out=[];
+  for(const i of (byWeek[w]||[])){ if(!rowPass(i)) continue;
+    const s=D.s[i]||0, p=cpmOf(i)||0, v=D.v[i]||0, si=statusIdx(s,p); if(j>=0 && si!==j) continue;
+    const m=D.mats[D.m[i]], sq=sobre(s,p,v); if(abc && m[3]!==abc) continue;
+    out.push([j===5?p:j===4?v:(p?s/p:1e9+v),['W'+w,MX_NAME[si],m[0],'"'+String(m[1]).replace(/"/g,'""')+'"',D.fams[m[2]],m[3],num(s),num(p),p?num(s/p):'',num(v),num(sq[0]),num(sq[1]),D.ults[D.u[i]]||''].join(';')]); }
+  out.sort((x,y)=>y[0]-x[0]);
+  const name=(j>=0?MX_NAME[j]:'Total').replace(/[^A-Za-z0-9áéíóúñ]+/gi,'_').replace(/_+$/,'');
+  const blob=new Blob(['\ufeff'+[head.join(';')].concat(out.map(x=>x[1])).join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`codigos_${abc?'clase'+abc+'_':''}${name}_W${w}_${S.hz}.csv`; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); });
+$('#mxCsv').onclick=()=>{ const head=['Status','Alcance','Semana',...MXC];
+  const num=v=>String(Math.round(v*1000)/1000).replace('.',',');
+  const lines=[head.join(';')].concat(mxRows.map(([s,a,w,c])=>[s,a,w,num(c.stock),num(c.sob),num(c.cpm),c.n,num(c.pct),num(c.cob),num(c.rot),num(c.val),num(c.v9)].join(';')));
+  const blob=new Blob(['﻿'+lines.join('\n')],{type:'text/csv;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`detalle_status_${S.hz}_W${S.from}-W${S.to}.csv`; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); };
 
 // ---- events ----
 $('#hz').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; S.hz=b.dataset.v; [...$('#hz').children].forEach(x=>x.setAttribute('aria-pressed',x===b)); render(); });
 $('#wFrom').onchange=e=>{ S.from=+e.target.value; if(S.from>S.to){S.to=S.from; $('#wTo').value=S.to;} render(); };
-$('#wTo').onchange=e=>{ S.to=+e.target.value; if(S.to<S.from){S.from=S.to; $('#wFrom').value=S.from;} S.page=0; render(); };
+$('#wTo').onchange=e=>{ S.to=+e.target.value; mxSel=null; if(S.to<S.from){S.from=S.to; $('#wFrom').value=S.from;} S.page=0; render(); };
 $('#fam').onchange=e=>{ S.fam=e.target.value; S.page=0; render(); };
 $('#st').onchange=e=>{ S.st=e.target.value; S.page=0; render(); };
 $('#abcSel').onchange=e=>{ S.abc=e.target.value; S.page=0; render(); };
