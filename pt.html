@@ -588,7 +588,7 @@ function render(){
   const by = j => rs.filter(r=>r.st===j);
   const hzN = S.hz===8 ? '8 sem' : 'anual';
   const catT = S.cat ? CATN[S.cat].toLowerCase() : 'producto terminado y merchandising';
-  $('#pCut').textContent=wl(iCut); $('#pStk').textContent=fdate(CORTES[k].fecha)+' ('+fdia(CORTES[k].fecha)+')'; $('#pHz').textContent=S.hz===8?'8 semanas':'Anual'; $('#pGen').textContent=DATA.generado.slice(0,10).split('-').reverse().join('/');
+  $('#pCut').textContent=wl(iCut); $('#pStk').textContent=fdate(CORTES[k].fecha); $('#pHz').textContent=S.hz===8?'8 semanas':'Anual'; $('#pGen').textContent=DATA.generado.slice(0,10).split('-').reverse().join('/');
   $('#tag').textContent = `Stock disponible de ${compact(a.s)} unidades de ${catT} con ${a.cob!=null?fmt1.format(a.cob):'—'} semanas de cobertura ${hzN}. Seguimiento semanal de ${wl(S.from)} a ${wl(iCut)}.`;
 
   // KPI strip (comparación contra el corte anterior)
