@@ -44,7 +44,7 @@ html,body{margin:0;height:100%;background:var(--bg);font:14px/1.4 "Segoe UI",sys
     if(!VALID.includes(k)) k = 'mp';
     VALID.forEach(x=>{
       const f = document.getElementById('f-'+x), on = x===k;
-      if(on && !f.getAttribute('src')) f.setAttribute('src', f.dataset.src);   // cada tablero se carga la primera vez que se elige
+      if(on && !f.getAttribute('src')) f.setAttribute('src', f.dataset.src + '?v=' + Date.now());   // se carga la primera vez que se elige; ?v= evita que el navegador muestre una versión guardada
       f.classList.toggle('on', on);
     });
     btns.forEach(b=>b.setAttribute('aria-pressed', b.dataset.k===k));
