@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Reportes FuXion</title>
+<!-- __FX_CIFRADO__ -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font:14px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#043a5a 0%,#03304f 55%,#022640 100%);display:flex;align-items:center;justify-content:center;color:#0f1f2e}
+.box{background:#fff;border-radius:16px;padding:30px 30px 26px;width:min(380px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.35);display:none}
+.box.on{display:block}
+.lk{width:46px;height:46px;border-radius:12px;background:#e2eef9;color:#0a64b4;display:grid;place-items:center;margin-bottom:14px}
+.lk svg{width:24px;height:24px}
+h1{margin:0;font-size:18px;font-weight:800;letter-spacing:.3px}
+p{margin:4px 0 18px;color:#7a8693;font-size:13px}
+input{width:100%;height:40px;border:1px solid #c9d2dc;border-radius:9px;padding:0 12px;font:inherit;font-size:14px}
+input:focus{outline:2px solid #0a64b4;outline-offset:0;border-color:#0a64b4}
+button{margin-top:12px;width:100%;height:40px;border:0;border-radius:9px;background:#0a64b4;color:#fff;font:inherit;font-weight:700;cursor:pointer}
+button:disabled{opacity:.6;cursor:default}
+.err{min-height:18px;margin-top:10px;font-size:12.5px;color:#c03535}
+.ld{color:#dbe6f1;font-size:13px}
+</style>
+</head>
+<body>
+<div class="ld" id="ld">Abriendo…</div>
+<form class="box" id="box" autocomplete="off">
+  <div class="lk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+  <h1>FuXion · Acceso restringido</h1>
+  <p>Reportes FuXion · ingresa la clave de los tableros</p>
+  <input type="password" id="pw" placeholder="Clave" aria-label="Clave" autocomplete="current-password">
+  <button type="submit" id="go">Ingresar</button>
+  <div class="err" id="err"></div>
+</form>
+<script>
+(function(){
+  const DATA="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", KEY='fxRepClave', ITER=250000;
+  const $=id=>document.getElementById(id);
+  const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+  async function abrir(pw){
+    const raw=b64(DATA), sal=raw.slice(0,16), iv=raw.slice(16,28), ct=raw.slice(28);
+    const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+    const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:sal,iterations:ITER,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+    const html=new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv},k,ct));
+    try{ sessionStorage.setItem(KEY,pw); }catch(e){}
+    document.open(); document.write(html); document.close();
+  }
+  function pedir(msg){ $('ld').style.display='none'; $('box').classList.add('on'); $('err').textContent=msg||''; $('pw').focus(); }
+  $('box').addEventListener('submit',async e=>{
+    e.preventDefault(); const pw=$('pw').value; if(!pw) return;
+    $('go').disabled=true; $('err').textContent='';
+    try{ await abrir(pw); }catch(x){ $('go').disabled=false; $('pw').select(); $('err').textContent='Clave incorrecta.'; }
+  });
+  let guardada=null; try{ guardada=sessionStorage.getItem(KEY); }catch(e){}
+  if(!window.crypto||!crypto.subtle){ pedir('Este navegador no permite abrir el reporte (se necesita https).'); return; }
+  if(guardada){ abrir(guardada).catch(()=>{ try{ sessionStorage.removeItem(KEY); }catch(e){} pedir(); }); }
+  else pedir();
+})();
+</script>
+</body>
+</html>
