@@ -296,7 +296,7 @@ footer{margin-top:26px;font-size:11.5px;color:var(--ink-3);line-height:1.6}
     <div class="sec-h"><h2>Pedidos no entregados y pendientes</h2><div class="note" id="nNote"></div></div>
     <div class="grid2">
       <div class="card"><h3>Motivo registrado</h3><p class="sub">Pedidos pendientes o no entregados por motivo agrupado · haz clic en una barra para ver los pedidos (Perú)</p><div class="chart t"><canvas id="cMot"></canvas></div></div>
-      <div class="card"><h3>Por courier</h3><p class="sub">Pendientes y no entregados · top 8 couriers</p><div class="chart t"><canvas id="cNC"></canvas></div></div>
+      <div class="card"><h3>Por courier</h3><p class="sub">Pendientes y no entregados · top 8 couriers · haz clic en una barra para ver los pedidos (Perú)</p><div class="chart t"><canvas id="cNC"></canvas></div></div>
     </div>
   </section>
 
@@ -532,7 +532,7 @@ function render(){
       scales:{x:{display:false,max:mMax*1.02,beginAtZero:true},y:{grid:{display:false},border:{display:false},ticks:{color:css('--ink-2')}}}}});
   const nc=Object.entries(byC).map(([c,a])=>[D.cour[c],a.pe,a.ne]).filter(x=>x[1]+x[2]>0).sort((a,b)=>(b[1]+b[2])-(a[1]+a[2])).slice(0,8);
   up('cNC',{type:'bar',data:{labels:nc.map(x=>x[0]),datasets:[{label:'Pendiente',data:nc.map(x=>x[1]),backgroundColor:css('--s-alto'),stack:'s',maxBarThickness:20},{label:'No entregado',data:nc.map(x=>x[2]),backgroundColor:css('--s-riesgo'),stack:'s',maxBarThickness:20}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,animation:{duration:250},interaction:{mode:'index',axis:'y',intersect:false},plugins:{legend:leg,tooltip:Object.assign(tip(),{callbacks:{label:c=>' '+c.dataset.label+': '+f0.format(c.parsed.x)}})},
+    options:{onClick:(e,_,ch)=>{ const el=ch.getElementsAtEventForMode(e,'y',{intersect:false},false); if(!el.length) return; const hit=ch.getElementsAtEventForMode(e,'nearest',{intersect:true},false); ncOpen(nc[el[0].index][0], hit.length?hit[0].datasetIndex+1:0); },onHover:(e,_,ch)=>{ e.native.target.style.cursor=ch.getElementsAtEventForMode(e,'y',{intersect:false},false).length?'pointer':'default'; },indexAxis:'y',responsive:true,maintainAspectRatio:false,animation:{duration:250},interaction:{mode:'index',axis:'y',intersect:false},plugins:{legend:leg,tooltip:Object.assign(tip(),{callbacks:{label:c=>' '+c.dataset.label+': '+f0.format(c.parsed.x)}})},
       scales:{x:{stacked:true,grid:{color:grid},ticks:{color:ink3,callback:v=>compact(v)},border:{display:false}},y:{stacked:true,grid:{display:false},border:{display:false},ticks:{color:css('--ink-2')}}}}});
   $('#nNote').textContent=`${f0.format(T.pe)} pendientes y ${f0.format(T.ne)} no entregados (${fP.format((T.n-T.s3)?(T.pe+T.ne)/(T.n-T.s3):0)} de los pedidos)`+(T.s3?` · ${f0.format(T.s3)} excluidos del cálculo (servicios, cancelados, anulados, fletes y eventos)`:'');
 
@@ -667,6 +667,15 @@ function motOpen(lbl){
     r=>r[15]>0&&LTD.mot[r[14]]===lbl&&(mm==null||r[1]===mm)&&(S.c===''||r[2]==S.c),
     B=>{ const n=B.length,c=[0,0,0],bc={}; B.forEach(r=>{c[r[15]]++; bc[r[2]]=(bc[r[2]]||0)+1;}); const t=Object.entries(bc).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v])=>esc(D.cour[k])+' '+f0.format(v)).join(' · ');
       return [['Pedidos',f0.format(n)],['Pendientes',f0.format(c[1])],['No entregados',f0.format(c[2])],['Por courier',t||'—']]; });
+}
+async function ncOpen(name,sit){
+  if(S.p!==''&&+S.p!==PEi()) return;
+  const ci=D.cour.indexOf(name), mm=S.m===''?null:+S.m;
+  await dOpen('mo',`${name} · pendientes y no entregados · ${mm?D.meses[mm-1]+' 2026':'enero a noviembre 2026'}`,'Pedidos de Perú del courier que aún no se entregan o no se entregaron · respeta los filtros de mes, departamento y semana',
+    r=>r[15]>0&&r[2]===ci&&(mm==null||r[1]===mm),
+    B=>{ const n=B.length,c=[0,0,0],bm={}; B.forEach(r=>{c[r[15]]++; const k=LTD.mot[r[14]]||'Sin motivo'; bm[k]=(bm[k]||0)+1;}); const t=Object.entries(bm).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([k,v])=>esc(k)+' '+f0.format(v)).join(' · ');
+      return [['Pedidos',f0.format(n)],['Pendientes',f0.format(c[1])],['No entregados',f0.format(c[2])],['Motivo principal',t||'—']]; });
+  if(sit){ $('#lF').value='g'+sit; ltFilter(); }
 }
 function cOpen(ci){
   const mm=S.m===''?null:+S.m;
